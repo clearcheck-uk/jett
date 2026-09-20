@@ -4,7 +4,7 @@
 export const site = {
   name: "JETT",
   tagline: "just jett.",
-  url: "https://jett.example", // TODO: replace once domain is secured
+  url: "https://starrly.uk",
   ticker: "$JETT",
   network: "Solana",
 
