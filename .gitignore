@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# raw source reference images (large, kept locally only — the resized/
+# cropped versions actually used by the site live in public/images)
+/assets/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

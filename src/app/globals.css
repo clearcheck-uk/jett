@@ -1,26 +1,334 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --jett-black: #04060c;
+  --jett-navy: #070d1c;
+  --jett-panel: #0b1526;
+  --jett-chrome: #cfe0f2;
+  --jett-chrome-dim: #4a6182;
+  --jett-blue: #4fc3ff;
+  --jett-ice: #aee9ff;
+  --jett-cyan: #37e6ff;
+  --jett-purple: #a06bff;
+  --jett-acid: #baff3f;
+  --jett-white: #f2f8ff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-jett-black: var(--jett-black);
+  --color-jett-navy: var(--jett-navy);
+  --color-jett-panel: var(--jett-panel);
+  --color-jett-chrome: var(--jett-chrome);
+  --color-jett-chrome-dim: var(--jett-chrome-dim);
+  --color-jett-blue: var(--jett-blue);
+  --color-jett-ice: var(--jett-ice);
+  --color-jett-cyan: var(--jett-cyan);
+  --color-jett-purple: var(--jett-purple);
+  --color-jett-acid: var(--jett-acid);
+  --color-jett-white: var(--jett-white);
+  --font-display: var(--font-press-start);
+  --font-body: var(--font-space-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(
+      ellipse 120% 60% at 50% 0%,
+      #0c1f3d 0%,
+      var(--jett-navy) 45%,
+      var(--jett-black) 100%
+    )
+    fixed;
+  color: var(--jett-white);
+}
+
+/* Chrome / Y2K metallic text — icy blue instead of neutral silver, pulled
+   from the highlight tones in the supplied JETT title-card artwork */
+.text-chrome {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #d8f0ff 30%,
+    #7fb8e8 48%,
+    #3f6fa0 55%,
+    #cfeaff 70%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 0 18px rgba(79, 195, 255, 0.35));
+}
+
+/* CRT scanline overlay */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(200, 230, 255, 0.04) 0px,
+    rgba(200, 230, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+.crt-vignette {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(2, 5, 12, 0.65) 100%
+  );
+}
+
+@keyframes flicker {
+  0%,
+  96%,
+  100% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.86;
+  }
+  98% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.9;
+  }
+}
+
+.crt-flicker {
+  animation: flicker 6s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-flicker {
+    animation: none;
+  }
+}
+
+@keyframes blink-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.blink-caret {
+  animation: blink-caret 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blink-caret {
+    animation: none;
+  }
+}
+
+.panel-bevel {
+  border: 1px solid var(--jett-chrome-dim);
+  box-shadow:
+    inset 0 1px 0 rgba(180, 220, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+  background: linear-gradient(180deg, #101d33 0%, #060b16 100%);
+}
+
+/* Stronger variant for the panels that should visually anchor a page —
+   used sparingly, not on every panel, so the glow still reads as a choice */
+.panel-glow {
+  border-color: rgba(79, 195, 255, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(180, 220, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(79, 195, 255, 0.08),
+    0 0 40px rgba(55, 230, 255, 0.12);
+}
+
+.scanline-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a2b45 0%, #0a1120 55%, #142138 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(200, 230, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.7),
+    0 2px 10px rgba(0, 0, 0, 0.5);
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.scanline-btn:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(200, 230, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.7),
+    0 0 24px rgba(79, 195, 255, 0.35);
+}
+
+.scanline-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(200, 235, 255, 0.22) 45%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.5s ease;
+}
+
+.scanline-btn:hover::after {
+  transform: translateX(120%);
+}
+
+/* PS2-menu-style grid + glow sitting behind all page content */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+      rgba(79, 195, 255, 0.09) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(79, 195, 255, 0.09) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    black 0%,
+    transparent 75%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    black 0%,
+    transparent 75%
+  );
+}
+
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      ellipse 65% 45% at 50% -5%,
+      rgba(55, 230, 255, 0.2),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 55% 40% at 100% 100%,
+      rgba(79, 195, 255, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 45% 30% at 0% 60%,
+      rgba(160, 107, 255, 0.08),
+      transparent 65%
+    );
+}
+
+/* Small PS2-menu-style corner brackets for framing UI panels (not artwork) */
+.panel-frame {
+  position: relative;
+}
+
+.panel-frame::before,
+.panel-frame::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--jett-cyan);
+  border-style: solid;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.panel-frame::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+
+.panel-frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Frame specifically for artwork panels — thin glowing edge instead of a
+   solid bordered box, so the art still reads as unboxed/bleeding into the
+   page while getting a bit of console-screen presence */
+.art-frame {
+  position: relative;
+  border-radius: 2px;
+  box-shadow:
+    0 0 0 1px rgba(79, 195, 255, 0.25),
+    0 0 60px rgba(55, 230, 255, 0.15);
+}
+
+/* Boot sequence, shown once on first paint */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: var(--jett-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: boot-out 0.4s ease-out 0.85s forwards;
+}
+
+@keyframes boot-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-screen {
+    display: none;
+  }
+}
+
+/* Lets artwork sit directly on the page background instead of inside
+   a bordered box — edges fade into the background rather than being
+   cropped by a hard frame. */
+.bleed-fade {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 72%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 72%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.65));
+}
+
+.hud-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--jett-cyan);
+  text-shadow: 0 0 12px rgba(55, 230, 255, 0.6);
 }
