@@ -7,10 +7,10 @@ import { site } from "@/lib/site";
 
 const links = [
   { href: "/", label: "START" },
-  { href: "/about", label: "JETT" },
+  { href: "/buy", label: "BUY" },
+  { href: "/about", label: "PLAYER" },
   { href: "/media", label: "MEDIA" },
   { href: "/community", label: "FANS" },
-  { href: "/buy", label: "BUY" },
 ];
 
 export function Nav() {
@@ -39,9 +39,9 @@ export function Nav() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`scanline-btn panel-bevel px-3 py-1.5 rounded-sm transition-colors ${
+                  className={`scanline-btn panel-glow bg-jett-cyan/10 px-4 py-2 rounded-sm font-display text-[11px] tracking-widest transition-colors ${
                     active ? "text-jett-cyan" : "text-jett-ice"
-                  } hover:text-jett-cyan`}
+                  } hover:text-jett-cyan hover:bg-jett-cyan/20`}
                 >
                   {site.ticker}
                 </Link>
@@ -79,6 +79,20 @@ export function Nav() {
         <nav className="md:hidden border-t border-jett-chrome-dim px-4 py-3 flex flex-col gap-3 font-body text-xs tracking-widest text-jett-chrome">
           {links.map((link) => {
             const active = pathname === link.href;
+            if (link.href === "/buy") {
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`scanline-btn panel-glow bg-jett-cyan/10 px-4 py-2 rounded-sm font-display text-[11px] tracking-widest w-fit ${
+                    active ? "text-jett-cyan" : "text-jett-ice"
+                  }`}
+                >
+                  {site.ticker}
+                </Link>
+              );
+            }
             return (
               <Link
                 key={link.href}
