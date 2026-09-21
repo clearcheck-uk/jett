@@ -22,7 +22,7 @@ export function Nav() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 flex items-center justify-between h-14">
         <Link
           href="/"
-          className="flex items-center gap-2 font-display text-xs sm:text-sm text-chrome tracking-widest"
+          className="flex items-center gap-2 font-display text-xs sm:text-sm text-chrome-bright tracking-widest"
         >
           <span
             className="w-1.5 h-1.5 rounded-full bg-jett-cyan shadow-[0_0_8px_rgba(55,230,255,0.9)]"
