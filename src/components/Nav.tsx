@@ -6,9 +6,9 @@ import { useState } from "react";
 import { site } from "@/lib/site";
 
 const links = [
+  { href: "/about", label: "PLAYER" },
   { href: "/", label: "START" },
   { href: "/buy", label: "BUY" },
-  { href: "/about", label: "PLAYER" },
   { href: "/media", label: "MEDIA" },
   { href: "/community", label: "FANS" },
 ];

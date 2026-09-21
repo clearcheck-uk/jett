@@ -7,10 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/community" },
 };
 
-const channels = [
-  { key: "x", label: "X / TWITTER" },
-  { key: "tiktok", label: "TIKTOK" },
-] as const;
+const channels = [{ key: "x", label: "X / TWITTER" }] as const;
 
 export default function CommunityPage() {
   return (
@@ -21,11 +18,9 @@ export default function CommunityPage() {
       </h1>
       <p className="font-body text-jett-chrome mb-12 max-w-xl leading-relaxed">
         Fans, meme makers, artists, Y2K enthusiasts, whoever&apos;s curious.
-        No official links exist yet — this section fills in as real accounts
-        go live.
       </p>
 
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="max-w-sm space-y-4">
         {channels.map((c) => {
           const href = site.social[c.key];
           return (
