@@ -24,10 +24,9 @@ export const site = {
   launchStatus: "not_launched" as "not_launched" | "live",
 
   // Placeholders — leave null until the real, owned account exists.
+  // Telegram/Discord deliberately excluded — not being used for JETT.
   social: {
     x: "https://x.com/TheJettCoin" as string | null,
-    telegram: null as string | null,
-    discord: null as string | null,
     tiktok: null as string | null,
   },
 

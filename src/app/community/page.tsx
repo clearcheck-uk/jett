@@ -9,8 +9,6 @@ export const metadata: Metadata = {
 
 const channels = [
   { key: "x", label: "X / TWITTER" },
-  { key: "telegram", label: "TELEGRAM" },
-  { key: "discord", label: "DISCORD" },
   { key: "tiktok", label: "TIKTOK" },
 ] as const;
 
