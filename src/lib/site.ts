@@ -8,20 +8,24 @@ export const site = {
   ticker: "$JETT",
   network: "Solana",
 
-  // TBD until the token actually exists on-chain. Never fill these with a
-  // guess — a wrong contract address sent to real users means real stolen funds.
+  // Verified on-chain 2026-09-21: real SPL mint, supply 1,000,000,000,
+  // decimals 6, mint authority null (fixed supply), freeze authority null,
+  // identity cross-confirmed via Solscan (name JETT, Raydium Launchpad
+  // Authority, matching creator wallet, matching initial-buy tx).
   // Single source of truth: both the homepage and /buy read this value, so
   // there's no risk of the two pages showing different addresses.
-  contractAddress: null as string | null,
+  contractAddress: "59dGfsQBm7VLyAi4tVCqjgy4KMVR1BUfyuDntotYFray" as string | null,
 
   // The verified official trading link (DEX/swap page) once JETT is live.
-  // Never hardcode this ahead of an actual, confirmed launch destination.
+  // Still null deliberately — not yet given a confirmed trading URL, and a
+  // guessed Raydium URL pattern is exactly the kind of invented link this
+  // field exists to prevent. Set this the moment the real link is confirmed.
   tradingUrl: null as string | null,
 
   // Internal note, not shown to visitors — /buy no longer explains launch
   // mechanics to customers, but this stays here for our own reference.
   launchPlatform: "Raydium LaunchLab", // Pump.fun is unavailable in the UK
-  launchStatus: "not_launched" as "not_launched" | "live",
+  launchStatus: "live" as "not_launched" | "live",
 
   // Placeholders — leave null until the real, owned account exists.
   // Telegram/Discord deliberately excluded — not being used for JETT.
