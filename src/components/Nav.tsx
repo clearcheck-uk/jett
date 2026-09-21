@@ -6,11 +6,11 @@ import { useState } from "react";
 import { site } from "@/lib/site";
 
 const links = [
-  { href: "/about", label: "PLAYER" },
-  { href: "/", label: "START" },
   { href: "/buy", label: "BUY" },
-  { href: "/media", label: "MEDIA" },
+  { href: "/", label: "START" },
+  { href: "/about", label: "PLAYER" },
   { href: "/community", label: "FANS" },
+  { href: "/media", label: "MEDIA" },
 ];
 
 export function Nav() {
